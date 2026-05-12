@@ -1,0 +1,17 @@
+module alu_project (
+    input  [1:0] A, B,
+    input  [2:0] sel,
+    output reg [1:0] Result,   // 2-bit result
+    output reg Carry           // carry/borrow for arithmetic ops
+);
+    always @(*) begin
+        case(sel)
+            3'b000: {Carry, Result} = A + B;          // Addition
+            3'b001: {Carry, Result} = A - B;          // Subtraction
+            3'b010: {Carry, Result} = {1'b0, A & B};  // AND
+            3'b011: {Carry, Result} = {1'b0, A | B};  // OR
+            3'b100: {Carry, Result} = {1'b0, A ^ B};  // XOR
+            default: {Carry, Result} = 3'b000;        // Default
+        endcase
+    end
+endmodule

@@ -1,0 +1,23 @@
+module alu_tb;
+    reg [1:0] A, B;
+    reg [2:0] sel;
+    wire [1:0] Result;
+    wire Carry;
+
+    // Instantiate the ALU module
+    alu_project uut (.A(A), .B(B), .sel(sel), .Result(Result), .Carry(Carry));
+
+    initial begin
+        $monitor("A=%b B=%b sel=%b => Carry=%b Result=%b", A, B, sel, Carry, Result);
+
+        A = 2'b10; B = 2'b01;
+
+        sel = 3'b000; #10; // Addition
+        sel = 3'b001; #10; // Subtraction
+        sel = 3'b010; #10; // AND
+        sel = 3'b011; #10; // OR
+        sel = 3'b100; #10; // XOR
+
+        $finish;
+    end
+endmodule
